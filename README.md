@@ -24,6 +24,7 @@ This script naively scans all the folders for files that is named like a wallet 
 - so, looking for any filename with wallet in the name.
     - this results in a -lot- of false postives (eg: windows .dll's)
     - added a 'likelyWallet' flag that checks if the file starts with the bytes I've seen on my wallets
+        - specifically, it scans for the berkeley DB tree magic bytes
 
 ## byte-scan.py
 
