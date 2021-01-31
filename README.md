@@ -13,7 +13,7 @@ This script naively scans all the folders for files that might look like a walle
 
 - filenames I knew about:
     - `wallet.dat` which is the default name
-    - *wallet*.*dat*` any backup wallets with alternate names
+    - `*wallet*.*dat*` any backup wallets with alternate names
     - `electrum_default_wallet` default electrum wallet name
     - `*.wallet` armory wallets
 
