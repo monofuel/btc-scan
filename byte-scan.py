@@ -7,7 +7,7 @@ import mmap
 
 # script assumes running as root
 
-likely_header = bytearray.fromhex("000000000100000000000000623105000900")
+likely_header = bytearray.fromhex("00000000010000000000000062310500")
 
 # list of system drives to not attempt to mount
 ignore_drives = ("7a907b0c-4f8a-4350-b2b4-c804abca9622", "ed5b6085-40e0-463e-b2fa-438f6cb9ddcb", "6d406c55-5de8-4401-b2ee-92bd1046520c", "80b7f420-7699-476c-9db1-c0108bb661aa")

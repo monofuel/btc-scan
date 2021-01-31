@@ -13,8 +13,8 @@ wallet_dict = {}
 # TODO should track multiple dirs
 
 # NB. I have no clue what the wallet format is, but they generally seem to start with this
-# btc wallets have '0000 0010' after this, dogecoin has '0000 0020'
-likely_header = bytearray.fromhex("000000000100000000000000623105000900")
+# btc wallets have '0900 0000 0010' after this, dogecoin has '0900 0000 0020'
+likely_header = bytearray.fromhex("00000000010000000000000062310500")
 
 class Wallet:
     dir = ""
