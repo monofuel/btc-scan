@@ -3,6 +3,7 @@ import os
 import subprocess
 import hashlib
 import json
+import pathlib
 
 # script assumes running as root
 
@@ -67,7 +68,7 @@ def main():
         meta = {
             'hash': md5hash,
             'fulldir': wallet.dir,
-            'drive': os.path.split(os.path.dirname(wallet.dir))[0],
+            'drive': pathlib.Path(wallet.dir).parts[0],
             'filename': os.path.basename(wallet.dir),
             'likelyWallet': wallet.likelyWallet()
         }

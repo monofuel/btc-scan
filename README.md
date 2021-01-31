@@ -24,11 +24,42 @@ This script naively scans all the folders for files that might look like a walle
 
 ## byte-scan.py
 
-TODO
 this script scans the bytes of the drive, looking for forgotten bitcoin wallets that may exist in unformatted space.
 
-- how to implement?
+- implementation:
     - read in ./wallet/meta.json
     - count # of likely wallets on drive
     - scan drive for likelyWallet header
-    - compare count of likely headers with wallets on drive
+    - compare count of likely headers with meta.json from scanning folders
+
+example on an empty wallet on a USB drive:
+```
+monofuel@twist:~/btc-scan$ sudo python3 ./mount-drives.py 
+drives to mount:  ['47ad0d2e-0470-434c-ba65-fc6c24990aba']
+./mount exists
+cleaning up mounts folder
+unmounted 47ad0d2e-0470-434c-ba65-fc6c24990aba
+mounting disks
+mounted: 47ad0d2e-0470-434c-ba65-fc6c24990aba
+
+monofuel@twist:~/btc-scan$ sudo python3 ./folder-scan.py 
+
+loaded existing ./wallets/meta.json
+./wallets exists
+likely wallet: 120bccde9fa4eed1a161b1890f07f622 at ./47ad0d2e-0470-434c-ba65-fc6c24990aba/wallet.dat
+wrote out ./wallets/meta.json
+
+monofuel@twist:~/btc-scan$ sudo python3 ./byte-scan.py 
+loaded existing ./wallets/meta.json
+drives to scan:  ['47ad0d2e-0470-434c-ba65-fc6c24990aba']
+scanning: /dev/disk/by-uuid/47ad0d2e-0470-434c-ba65-fc6c24990aba
+fileno 3
+
+results
+
+found matches: 1
+matching indices: {} [136323072]
+
+meta matches: 1
+all likely wallets found
+```
