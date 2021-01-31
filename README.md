@@ -18,6 +18,9 @@ This script naively scans all the folders for files that might look like a walle
     - `*.wallet` armory wallets
 
 - so, looking for any filename with wallet in the name.
+    - this results in a -lot- of false postives (eg: windows .dll's)
+    - added a 'likelyWallet' flag 
+
 
 ## byte-scan.py
 
