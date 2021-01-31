@@ -26,3 +26,9 @@ This script naively scans all the folders for files that might look like a walle
 
 TODO
 this script scans the bytes of the drive, looking for forgotten bitcoin wallets that may exist in unformatted space.
+
+- how to implement?
+    - read in ./wallet/meta.json
+    - count # of likely wallets on drive
+    - scan drive for likelyWallet header
+    - compare count of likely headers with wallets on drive
