@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import os
+import sys
 import subprocess
 import hashlib
 import json
@@ -14,38 +15,35 @@ ignore_drives = ("7a907b0c-4f8a-4350-b2b4-c804abca9622", "ed5b6085-40e0-463e-b2f
 
 
 def main():
+
     meta_file = open("./wallets/meta.json", 'r')
     contents = meta_file.read()
     meta_file.close()
     wallet_meta = json.loads(contents)
     print('loaded existing ./wallets/meta.json')
 
-    check_disks = [f for f in os.listdir('/dev/disk/by-uuid') if f not in ignore_drives]
-    print("drives to scan: ", check_disks)
-
     matches = {}
 
-    for disk in check_disks:
+    if len(sys.argv) >= 2:
+        if len(sys.argv) >= 3:
+            print("specify no args to scan all disks, or 1 arg to specify a specific file")
+            return
+        
+        disk = sys.argv[1]
         matches[disk] = []
         diskMatches = matches[disk]
-        diskname = '/dev/disk/by-uuid/{}'.format(disk)
-        # diskpath = os.path.realpath(diskname)
-        print('scanning: ' + diskname)
-        with open(diskname, 'r+b') as file:
-            print("fileno {}".format(file.fileno()))
-            file.seek(0, 2) # move to end of file
-            size = file.tell() # get size
-            file.seek(0,0) # move back to start (is this needed?)
+        checkFile(disk, diskMatches)
 
-            with mmap.mmap(file.fileno(), length=size, access=mmap.ACCESS_READ) as s:
-                idx = 0
-                while True:
-                    index = s.find(likely_header, idx)
-                    if index == -1:
-                        break
-                    # print('found match: {}'.format(index))
-                    diskMatches.append(index)
-                    idx = index + 1
+    else:
+        check_disks = [f for f in os.listdir('/dev/disk/by-uuid') if f not in ignore_drives]
+        print("drives to scan: ", check_disks)
+
+        for disk in check_disks:
+            matches[disk] = []
+            diskMatches = matches[disk]
+            diskname = '/dev/disk/by-uuid/{}'.format(disk)
+            # diskpath = os.path.realpath(diskname)
+            checkFile(diskname, diskMatches)
 
     # compare results of disk scan with results of meta.json
     print()
@@ -68,7 +66,24 @@ def main():
             print('all likely wallets found')
 
 
+# checkFile scans a block device or file for bitcoin signatures
+def checkFile(diskname, diskMatches):
+    print('scanning: ' + diskname)
+    with open(diskname, 'r+b') as file:
+        print("fileno {}".format(file.fileno()))
+        file.seek(0, 2) # move to end of file
+        size = file.tell() # get size
+        file.seek(0,0) # move back to start (is this needed?)
 
+        with mmap.mmap(file.fileno(), length=size, access=mmap.ACCESS_READ) as s:
+            idx = 0
+            while True:
+                index = s.find(likely_header, idx)
+                if index == -1:
+                    break
+                # print('found match: {}'.format(index))
+                diskMatches.append(index)
+                idx = index + 1
 
 
 main()
