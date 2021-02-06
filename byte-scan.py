@@ -64,6 +64,9 @@ def main():
         
         if len(metaMatches) == len(diskMatches):
             print('all likely wallets found')
+        else:
+            # TODO print differences
+            print('wallet count mismatch')
 
 
 # checkFile scans a block device or file for bitcoin signatures
