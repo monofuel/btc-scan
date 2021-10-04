@@ -28,7 +28,7 @@ This script naively scans all the folders for files that is named like a wallet 
 
 ## byte-scan.py
 
-this script scans the bytes of the drive, looking for forgotten bitcoin wallets that may exist in unformatted space.
+this script scans the bytes of the drive, looking for forgotten bitcoin wallets that may exist in unformatted space or on disk image files
 
 - implementation:
     - read in ./wallet/meta.json
