@@ -9,7 +9,7 @@
 
 ## mount-drives.py
 
-This script attempts to list and mount drives by UUID. it script includes a blocklist of drive IDs to skip (update for your system!)
+This script attempts to list and mount drives by UUID. it includes a blocklist of drive IDs to skip (update for your system!)
 
 ## folder-scan.py
 
